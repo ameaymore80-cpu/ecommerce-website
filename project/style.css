@@ -577,6 +577,7 @@ footer .copyright{
     }
 
      #close{
+        display: initial; 
         position: absolute;
         top: 30px;
         left: 30px;
@@ -588,6 +589,7 @@ footer .copyright{
         display: none;
     }
 }
+
 
 
 
