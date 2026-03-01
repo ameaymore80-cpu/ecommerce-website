@@ -129,6 +129,10 @@ body {
     align-items: center;
 }
 
+#close{
+    display: none;
+}
+
 /* Home page*/
 #hero{
      background-image: url("img/hero4.png.jpeg");
@@ -584,6 +588,7 @@ footer .copyright{
         display: none;
     }
 }
+
 
 
 
