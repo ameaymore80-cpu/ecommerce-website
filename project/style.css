@@ -714,7 +714,7 @@ footer .copyright{
 }
 #about-app .video{
     width: 70%;
-    height: 90%;
+    height: 80%;
     margin: 30px auto 0 auto;
 }
 #about-app .video video{
@@ -722,7 +722,6 @@ footer .copyright{
     height: 90%;
     border-radius: 20px;
 }
-
 
 /* contact page */
 
@@ -923,6 +922,29 @@ footer .copyright{
     }
 
     #blog .blog-details 
+    {
+        width: 100%;
+    }
+
+    /* about page */
+
+    #about-head 
+    {
+        flex-direction: column;
+    }
+
+    #about-head img 
+    {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    #about-head div 
+    {
+        padding-left: 0px;
+    }
+
+    #about-app .video 
     {
         width: 100%;
     }
