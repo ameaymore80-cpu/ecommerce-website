@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Forgot Password</title>
+
+<style>
+body {
+    height: 100vh;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 350px;
+    margin: 80px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 20pxy rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Captcha box */
+.captcha-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.captcha-text {
+    background: #f3f3f3;
+    padding: 8px 15px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    border-radius: 5px;
+}
+
+/* Refresh button */
+.refresh {
+    cursor: pointer;
+    font-size: 18px;
+}
+
+/* Button */
+button {
+    width: 100%;
+    padding: 10px;
+    background: #ffd814;
+    border: 1px solid #fcd200;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #f7ca00;
+}
+
+.success {
+    color: green;
+    margin-top: 10px;
+    display: none;
+}
+
+.error {
+    color: red;
+    margin-top: 10px;
+    display: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Forgot Password</h2>
+
+    <input type="text" id="email" placeholder="Email or Mobile Number">
+
+    <input type="text" id="userCaptcha" placeholder="Enter Captcha">
+
+    <div class="captcha-box">
+        <div class="captcha-text" id="captcha"></div>
+        <div class="refresh" onclick="generateCaptcha()">🔄</div>
+    </div>
+
+    <button onclick="handleForgot()">Send OTP</button>
+
+    <div class="success" id="successMsg">
+        OTP Sent Successfully ✅
+    </div>
+
+    <div class="error" id="errorMsg">
+        Invalid Captcha ❌
+    </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

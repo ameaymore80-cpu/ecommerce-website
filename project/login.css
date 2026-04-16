@@ -1,0 +1,123 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    height: 100vh;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Center container */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Card */
+.login-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    padding: 30px;
+    border-radius: 15px;
+    color: #fff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+/* Logo */
+.logo {
+    text-align: center;
+    color: #2874f0;
+    margin-bottom: 15px;
+}
+
+/* Headings */
+.login-card h2 {
+    margin-bottom: 15px;
+}
+
+/* Labels */
+label {
+    font-size: 14px;
+    margin-top: 10px;
+    display: block;
+}
+
+/* Inputs */
+input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+}
+
+/* Login button */
+.login-btn {
+    width: 100%;
+    background: #ffd814; /* Amazon yellow */
+    border: none;
+    padding: 10px;
+    margin-top: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.login-btn:hover {
+    background: #f7ca00;
+}
+
+/* Terms */
+.terms {
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+/* Links */
+.forgot-btn {
+    display: block;
+    width: 60%;
+    margin: 10px auto;
+    padding: 10px;
+    text-align: center;
+    background: white;
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    border: 1px solid #ccc;
+}
+
+.forgot-btn:hover{
+    background: #f3f2eb;
+}
+
+/* Divider */
+hr {
+    margin: 20px 0;
+}
+
+/* Create account button */
+.create-btn {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #aaa;
+    background: #f3f2eb;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.create-btn:hover {
+    background: #f0f0f0;
+}

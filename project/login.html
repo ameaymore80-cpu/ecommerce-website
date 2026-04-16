@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+<div class="login-container">
+
+    <div class="login-card">
+
+        <a href="#">
+            <img src="img/logo.jpeg"class="logo" height="100vh",width=100% , alt="" style="display: block; margin-left: auto; margin-right: auto;";>
+        </a>
+
+        <h2>Sign in</h2>
+
+        <form>
+            <label>Email or mobile number</label>
+            <input type="email" id="email" required>  
+
+            <label>Password</label>
+            <input type="password" id="password" required>
+
+            <button  class="login-btn">Login</button>
+
+            <p class="terms">
+                By continuing, you agree to our Conditions of Use and Privacy Notice.
+            </p>
+            
+            <a href="forgot.html" class="forgot-btn">Forgot Password?</a>
+        </form>
+
+        <hr>
+
+        <a href="register.html">
+            <button class="create-btn">Create your account</button>
+        </a>
+
+    </div>
+
+</div>
+
+<script>
+document.querySelector("form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const email = document.querySelector("#email").value;
+  const password = document.querySelector("#password").value;
+
+  const res = await fetch("http://localhost:5000/api/auth/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ email, password })
+  });
+
+  const data = await res.json();
+
+  if (data.token) {
+    localStorage.setItem("token", data.token);
+    alert("Login Successful");
+    window.location.href = "index.html";
+  } else {
+    alert(data.msg || "Login failed");
+  }
+});
+</script>
+
+</body>
+</html>
