@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checkout</title>
+
+    <!-- ✅ ADD HERE -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+</head>
+
+<body>
+
+<div class="checkout-container">
+
+  <h2>Checkout</h2>
+
+  <div id="cartItems"></div>
+
+  <h3>Total: ₹<span id="totalAmount">0</span></h3>
+
+  <div class="qr-section">
+    <h3>Scan QR to Pay</h3>
+    <canvas id="qrcode"></canvas>
+    <p>UPI ID: yourupi@okbank</p>
+  </div>
+
+  <form id="checkoutForm">
+    <input type="text" id="name" placeholder="Name" required />
+    <input type="text" id="address" placeholder="Address" required />
+    <input type="text" id="phone" placeholder="Phone" required />
+    
+    <button type="submit">Place Order</button>
+  </form>
+
+  <button id="fakePayment">Fake Payment Success</button>
+
+</div>
+
+<script>
+const token = localStorage.getItem("token");
+
+let totalAmount = 0;
+let currentOrderId = null;
+
+async function loadCart() {
+    const res = await axios.get("http://localhost:5000/api/cart", {
+        headers: { Authorization: `Bearer ${token}` }
+    });
+
+    let html = "";
+    totalAmount = 0;
+
+    res.data.forEach(item => {
+        const subtotal = item.product.price * item.quantity;
+        totalAmount += subtotal;
+
+        html += `<p>${item.product.name} - ${item.quantity} × ₹${item.product.price} = ₹${subtotal}</p>`;
+    });
+
+    document.getElementById("cartItems").innerHTML = html;
+    document.getElementById("totalAmount").innerText = totalAmount;
+
+    // QR Code
+    QRCode.toCanvas(document.getElementById("qrcode"),
+        `upi://pay?pa=yourupi@okbank&pn=Shop&am=${totalAmount}&cu=INR`);
+}
+
+// FORM SUBMIT
+document.getElementById("checkoutForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const address = document.getElementById("address").value;
+    const phone = document.getElementById("phone").value;
+
+    if (!address || !phone) {
+        alert("Fill all fields");
+        return;
+    }
+
+    const res = await axios.post("http://localhost:5000/api/orders",
+        { address, phone },
+        { headers: { Authorization: `Bearer ${token}` } }
+    );
+
+    alert("Order placed!");
+    currentOrderId = res.data.order._id;
+});
+
+// FAKE PAYMENT BUTTON
+document.getElementById("fakePayment").addEventListener("click", async () => {
+    if (!currentOrderId) {
+        alert("Place order first!");
+        return;
+    }
+
+    await axios.post("http://localhost:5000/api/orders/verify",
+        { orderId: currentOrderId },
+        { headers: { Authorization: `Bearer ${token}` } }
+    );
+
+    alert("Payment Successful!");
+    window.location.href = "index.html";
+});
+
+loadCart();
+</script>
+
+</body>
+</html>
