@@ -15,7 +15,7 @@
 
     <section id="header">
         <a href="#">
-            <img src="img/logo.png"class="logo" height="100vh",width=100% ,alt="">
+            <img src="img/logo.jpeg"class="logo" height="100vh",width=100% ,alt="">
         </a>
 
         <div>
@@ -46,48 +46,23 @@
     </section>
 
     <section id="cart" class="section-p1">
-        <table width="100%">
-            <thead>
-                <tr>
-                    <td>Remove</td>
-                    <td>Image</td>
-                    <td>Product</td>
-                    <td>Price</td>
-                    <td>Quantity</td>
-                    <td>Subtotal</td>
+    <table width="100%">
+        <thead>
+            <tr>
+                <td>Remove</td>
+                <td>Image</td>
+                <td>Product</td>
+                <td>Price</td>
+                <td>Quantity</td>
+                <td>Subtotal</td>
+            </tr>
+        </thead>
 
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><a href="#"><i class="far fa-times-circle"></i></a></td>
-                    <td><img src="img/products/p1.png" alt=""></td>
-                    <td>Cart Astronaut T-Shirts</td>
-                    <td>$118.19</td>
-                    <td><input type="number" value="1"></td>
-                    <td>$118.19</td>
-                </tr>
-                 <tr>
-                    <td><a href="#"><i class="far fa-times-circle"></i></a></td>
-                    <td><img src="img/products/p2.jpeg" alt=""></td>
-                    <td>Cart Astronaut T-Shirts</td>
-                    <td>$118.19</td>
-                    <td><input type="number" value="1"></td>
-                    <td>$118.19</td>
-                </tr>
-                 <tr>
-                    <td><a href="#"><i class="far fa-times-circle"></i></a></td>
-                    <td><img src="img/products/p3.jpeg" alt=""></td>
-                    <td>Cart Astronaut T-Shirts</td>
-                    <td>$118.19</td>
-                    <td><input type="number" value="1"></td>
-                    <td>$118.19</td>
-                </tr>
-            </tbody>
+        <!-- ✅ THIS IS WHERE DATA WILL LOAD -->
+        <tbody id="cart-items"></tbody>
 
-        </table>
-
-    </section>
+    </table>
+</section>
 
     <section id="cart-add" class="section-p1">
         <div id="coupon">
@@ -98,24 +73,29 @@
             </div>
         </div>
 
-        <div id="subtotal">
-            <h3>Cart Totals</h3>
-            <table>
-                <tr>
-                    <td>Cart Subtotal</td>
-                    <td>$ 335</td>
-                </tr>
-                <tr>
-                    <td>Shipping</td>
-                    <td>Free</td>
-                </tr>
-                <tr>
-                    <td><strong>Total</strong></td>
-                    <td><strong>$ 335</strong></td>
-                </tr>
-            </table>
-            <button class="normal">Proceed to checkout</button>
-        </div>
+    <div id="subtotal">
+    <h3>Cart Totals</h3>
+    <table>
+        <tr>
+            <td>Cart Subtotal</td>
+            <td id="cart-subtotal">₹0</td><!-- ✅ changed -->
+        </tr>
+        <tr>
+            <td>Shipping</td>
+            <td>Free</td>
+        </tr>
+        <tr>
+            <td><strong>Total</strong></td>
+            <td><strong id="cart-total">₹0</strong></td> <!-- ✅ keep this -->
+        </tr>
+    </table>
+    <button class="normal" onclick="goToCheckout()">Proceed to checkout</button>
+    <script>
+    function goToCheckout() {
+    window.location.href = "checkout.html";
+    }
+</script>
+    </div>
     </section>
 
     <footer class="section-p1">
@@ -174,7 +154,67 @@
 
     </footer>
     
-    <script src="script.js"></script>
+<script>
+async function loadCart() {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        alert("Please login first");
+        window.location.href = "login.html";
+        return;
+    }
+
+    const res = await fetch("http://localhost:5000/api/cart", {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
+
+    const data = await res.json();
+
+    let cartTable = document.getElementById("cart-items");
+    cartTable.innerHTML = "";
+
+    let total = 0;
+
+    data.forEach((item, index) => {
+        const product = item.product; // backend populated product
+
+        let subtotal = product.price * item.quantity;
+        total += subtotal;
+
+        let row = `
+            <tr>
+                <td><button onclick="removeItem('${item._id}')">X</button></td>
+                <td><img src="${product.image}" width="50"></td>
+                <td>${product.name}</td>
+                <td>₹${product.price}</td>
+                <td>${item.quantity}</td>
+                <td>₹${subtotal}</td>
+            </tr>
+        `;
+        cartTable.innerHTML += row;
+        
+    });
+
+    document.getElementById("cart-subtotal").innerText = "₹ " + total;
+    document.getElementById("cart-total").innerText = "₹ " + total;
+}
+
+async function removeItem(id) {
+    const token = localStorage.getItem("token");
+
+    await fetch(`http://localhost:5000/api/cart/${id}`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
+
+    loadCart();
+}
+window.onload = loadCart;
+</script>
 
 </body>
 
