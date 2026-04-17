@@ -15,7 +15,7 @@
 
     <section id="header">
         <a href="#">
-            <img src="img/logo.png"class="logo" height="100vh",width=100% ,alt="">
+            <img src="img/logo.jpeg"class="logo" height="100vh",width=100% ,alt="">
         </a>
 
         <div>
@@ -72,38 +72,48 @@
         </div>
     </section>
 
-    <section  id="feature"class="section-p1">
-        <div class="fe-box" >
-        <img src="img/f1.png" height="100vh",width=100%  alt="">
+    <section id="feature" class="section-p1">
+
+    <div class="fe-box" onclick="showPopup('free')">
+        <img src="img/f1.png" alt="">
         <h6>Free Shipping</h6>
-        </div>
+    </div>
 
-         <div class="fe-box" >
-        <img src="img/f2.png" height="100vh",width=100%  alt="">
+    <div class="fe-box" onclick="showPopup('order')">
+        <img src="img/f2.png" alt="">
         <h6>Online Order</h6>
-        </div>
+    </div>
 
-         <div class="fe-box" >
-        <img src="img/f3.png" height="100vh",width=100%  alt="">
+    <div class="fe-box" onclick="showPopup('save')">
+        <img src="img/f3.png" alt="">
         <h6>Save Money</h6>
-        </div>
+    </div>
 
-         <div class="fe-box" >
-        <img src="img/f4.png" height="100vh",width=100%  alt="">
+    <div class="fe-box" onclick="showPopup('promo')">
+        <img src="img/f4.png" alt="">
         <h6>Promotions</h6>
-        </div>
+    </div>
 
-
-         <div class="fe-box" >
-        <img src="img/f5.png" height="100vh",width=100%  alt="">
+    <div class="fe-box" onclick="showPopup('happy')">
+        <img src="img/f5.png" alt="">
         <h6>Happy Sell</h6>
-        </div>
+    </div>
 
-         <div class="fe-box" >
-        <img src="img/f6.png" height="100vh",width=100%  alt="">
-        <h6>F24/7 Support</h6>
-        </div>
-    </section>
+    <div class="fe-box" onclick="showPopup('support')">
+        <img src="img/f6.png" alt="">
+        <h6>24/7 Support</h6>
+    </div>
+
+</section>
+
+<!-- POPUP MODAL -->
+<div id="popup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <h3 id="popup-title"></h3>
+        <p id="popup-text"></p>
+    </div>
+</div>
 
     <section id="newsletter" class="section-m1">
         <div class="newstext">
@@ -118,7 +128,7 @@
 
     <footer class="section-p1">
         <div class="col">
-            <img src="img/logo.png"class="logo" height="100vh",width=100% ,alt="">
+            <img src="img/logo.jpeg"class="logo" height="100vh",width=100% ,alt="">
             <h4>Contact</h4>
             <p><strong>Address:</strong> Sinhagad College Of Science,pune</p>
             <p><strong>Phone:</strong> 8767583933 / 9112871404</p>
